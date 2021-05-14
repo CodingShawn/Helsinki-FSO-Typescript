@@ -50,4 +50,28 @@ function calculateExercises(
   };
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+function parseArgumentsExerciseCalulator(args: Array<string>) {
+  if (args.length < 4) {
+    throw new Error("Minimum 2 arguments must be provided!");
+  }
+  let numberInput = args.slice(2);
+  let toNumberArray = numberInput.map((number) => {
+    if (isNaN(Number(number))) {
+      throw new Error("Provided values are not numbers!");
+    } else {  
+      return Number(number);
+    }
+  });
+  let [targetHours, ...dailyExerciseHours] = toNumberArray;
+  
+  return { targetHours, dailyExerciseHours };
+}
+
+try {
+  const { targetHours, dailyExerciseHours } = parseArgumentsExerciseCalulator(
+    process.argv
+  );
+  console.log(calculateExercises(dailyExerciseHours, targetHours));
+} catch (error) {
+  console.log("Error something bad happened, error:", error.message);
+}
