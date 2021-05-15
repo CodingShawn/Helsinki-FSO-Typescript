@@ -8,7 +8,7 @@ app.get("/hello", (_request, response) => {
 });
 
 app.get("/bmi", (request, response) => {
-  let { height, weight } = request.query;
+  const { height, weight } = request.query;
 
   if (!height || !weight) {
     return response
@@ -22,7 +22,7 @@ app.get("/bmi", (request, response) => {
       .send({ error: "Values given are not numbers!" });
   }
 
-  let bmiDescription = calculateBMI(Number(height), Number(weight));
+  const bmiDescription = calculateBMI(Number(height), Number(weight));
 
   return response.send({
     weight,

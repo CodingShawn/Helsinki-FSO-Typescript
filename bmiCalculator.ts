@@ -1,5 +1,5 @@
 export function calculateBMI(height: number, weight: number): string {
-  let bmi = weight / Math.pow(height / 100, 2);
+  const bmi = weight / Math.pow(height / 100, 2);
 
   if (bmi < 18.5) {
     return "Underweight";
@@ -27,6 +27,7 @@ export function script() {
     const { height, weight } = parseArguments(process.argv);
     console.log(calculateBMI(height, weight));
   } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     console.log(`Error, something bad happened. Message:`, error.message);
   }
 }
