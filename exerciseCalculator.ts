@@ -9,7 +9,7 @@ interface Result {
   ratingDescription: string;
 }
 
-function calculateExercises(
+export function calculateExercises(
   dailyExerciseHours: Array<number>,
   targetHours: number
 ): Result {
@@ -51,29 +51,29 @@ function calculateExercises(
   };
 }
 
-function parseArgumentsExerciseCalulator(args: Array<string>) {
-  if (args.length < 4) {
-    throw new Error("Minimum 2 arguments must be provided!");
-  }
-  const numberInput = args.slice(2);
-  const toNumberArray = numberInput.map((number) => {
-    if (isNaN(Number(number))) {
-      throw new Error("Provided values are not numbers!");
-    } else {  
-      return Number(number);
-    }
-  });
-  const [targetHours, ...dailyExerciseHours] = toNumberArray;
+// function parseArgumentsExerciseCalulator(args: Array<string>) {
+//   if (args.length < 4) {
+//     throw new Error("Minimum 2 arguments must be provided!");
+//   }
+//   const numberInput = args.slice(2);
+//   const toNumberArray = numberInput.map((number) => {
+//     if (isNaN(Number(number))) {
+//       throw new Error("Provided values are not numbers!");
+//     } else {  
+//       return Number(number);
+//     }
+//   });
+//   const [targetHours, ...dailyExerciseHours] = toNumberArray;
   
-  return { targetHours, dailyExerciseHours };
-}
+//   return { targetHours, dailyExerciseHours };
+// }
 
-try {
-  const { targetHours, dailyExerciseHours } = parseArgumentsExerciseCalulator(
-    process.argv
-  );
-  console.log(calculateExercises(dailyExerciseHours, targetHours));
-} catch (error) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  console.log("Error something bad happened, error:", error.message);
-}
+// try {
+//   const { targetHours, dailyExerciseHours } = parseArgumentsExerciseCalulator(
+//     process.argv
+//   );
+//   console.log(calculateExercises(dailyExerciseHours, targetHours));
+// } catch (error) {
+//   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+//   console.log("Error something bad happened, error:", error.message);
+// }
