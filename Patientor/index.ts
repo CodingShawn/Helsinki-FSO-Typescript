@@ -1,8 +1,11 @@
 import express from "express";
+import cors from "cors";
 
 const app = express();
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+app.use(cors());
 
-app.get("/ping", (_request, response) => {
+app.get("/api/ping", (_request, response) => {
   return response.status(200).send("pong");
 });
 
