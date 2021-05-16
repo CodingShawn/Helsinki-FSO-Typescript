@@ -10,7 +10,6 @@ router.get("/", (_request, response) => {
 
 router.post("/", (request, response) => {
   try {
-    console.log(request.body);
     const parsedPatientData = toNewPatientData(request.body);
 
     const newPatientData = patientService.addNewPatient(parsedPatientData);

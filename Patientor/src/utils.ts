@@ -1,4 +1,4 @@
-import { NewPatientData, Fields } from "./types";
+import { NewPatientData, Fields, Gender } from "./types";
 
 export function toNewPatientData({
   gender,
@@ -20,11 +20,16 @@ function isString(text: unknown): text is string {
   return typeof text === "string" || text instanceof String;
 }
 
-function parseGender(gender: unknown): string {
-  if (!gender || !isString(gender)) {
+function parseGender(gender: unknown): Gender {
+  if (!gender || !isGender(gender)) {
     throw new Error("Incorrect or missing gender");
   }
   return gender;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isGender(param: any): param is Gender {
+  return Object.values(Gender).includes(param);
 }
 
 function parseDateOfBirth(dateOfBirth: unknown): string {

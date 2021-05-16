@@ -1,9 +1,9 @@
-import patientData from "../data/patients";
+import formattedPatientData from "../data/patients";
 import { NonSensitivePatientData, Patient, NewPatientData } from "../types";
 import { v1 as uuid } from "uuid";
 
 function getAllNonSensitive(): NonSensitivePatientData[] {
-  const nonSensitiveData = patientData.map(
+  const nonSensitiveData = formattedPatientData.map(
     ({ id, gender, dateOfBirth, occupation, name }) => {
       return {
         id,
@@ -23,7 +23,7 @@ function addNewPatient(newPatientDetails: NewPatientData): Patient {
     ...newPatientDetails,
     id,
   };
-  patientData.push(newPatient);
+  formattedPatientData.push(newPatient);
   return newPatient;
 }
 
