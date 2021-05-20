@@ -26,10 +26,16 @@ interface CourseSubmissionPart extends CoursePartWithDescription {
   exerciseSubmissionLink: string;
 }
 
+interface CourseSpecialPart extends CoursePartWithDescription {
+  type: "special";
+  requirements: string[];
+}
+
 export type CoursePart =
   | CourseNormalPart
   | CourseProjectPart
-  | CourseSubmissionPart;
+  | CourseSubmissionPart
+  | CourseSpecialPart;
 
 export function assertNever(value: never): never {
   throw new Error(`Unhandled type: ${JSON.stringify(value)}`);
