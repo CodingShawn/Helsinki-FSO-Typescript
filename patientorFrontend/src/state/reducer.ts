@@ -1,5 +1,7 @@
 import { State } from "./state";
 import { Patient } from "../types";
+import axios from "axios";
+import { apiBaseUrl } from "../constants";
 
 export type Action =
   | {
@@ -21,18 +23,41 @@ export const reducer = (state: State, action: Action): State => {
             (memo, patient) => ({ ...memo, [patient.id]: patient }),
             {}
           ),
-          ...state.patients
-        }
+          ...state.patients,
+        },
       };
     case "ADD_PATIENT":
       return {
         ...state,
         patients: {
           ...state.patients,
-          [action.payload.id]: action.payload
-        }
+          [action.payload.id]: action.payload,
+        },
       };
     default:
       return state;
   }
 };
+
+export async function PatientListFromApi() {
+  try {
+    const { data: patientListFromApi } = await axios.get<Patient[]>(
+      `${apiBaseUrl}/patients`
+    );
+    const data = { type: "SET_PATIENT_LIST", payload: patientListFromApi };
+    return parsePatientListFromApi(data);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+function parsePatientListFromApi(data: unknown): Action {
+  if (!isAction(data)) {
+    throw new Error("Not of type Action");
+  }
+  return data;
+}
+
+function isAction(data: unknown): data is Action {
+  return true;
+}
