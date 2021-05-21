@@ -8,6 +8,7 @@ import { useStateValue } from "./state";
 import { PatientListFromApi } from "./state/reducer";
 import PatientListPage from "./PatientListPage";
 import PatientInfo from "./components/PatientInfo";
+import { Diagnosis } from "./types";
 
 const App = () => {
   const [, dispatch] = useStateValue();
@@ -18,6 +19,23 @@ const App = () => {
         dispatch(data);
       }
     });
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    async function fetchDiagnosis() {
+      try {
+        const { data: diagnosisData } = await axios.get<Diagnosis[]>(
+          `${apiBaseUrl}/diagnoses`
+        );
+        dispatch({
+          type: "GET_DIAGNOSIS",
+          payload: diagnosisData,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    void fetchDiagnosis();
   }, [dispatch]);
 
   return (

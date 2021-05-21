@@ -1,5 +1,5 @@
 import { State } from "./state";
-import { Patient } from "../types";
+import { Diagnosis, Patient } from "../types";
 import axios from "axios";
 import { apiBaseUrl } from "../constants";
 
@@ -11,6 +11,10 @@ export type Action =
   | {
       type: "ADD_PATIENT";
       payload: Patient;
+    }
+  | {
+      type: "GET_DIAGNOSIS";
+      payload: Diagnosis[];
     };
 
 export const reducer = (state: State, action: Action): State => {
@@ -32,6 +36,16 @@ export const reducer = (state: State, action: Action): State => {
         patients: {
           ...state.patients,
           [action.payload.id]: action.payload,
+        },
+      };
+    case "GET_DIAGNOSIS":
+      return {
+        ...state,
+        diagnosis: {
+          ...action.payload.reduce(
+            (acc, diagnosis) => ({ ...acc, [diagnosis.code]: diagnosis.name }),
+            {}
+          ),
         },
       };
     default:
