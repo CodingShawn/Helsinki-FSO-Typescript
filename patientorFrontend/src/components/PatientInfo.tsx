@@ -5,11 +5,9 @@ import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../constants";
 import { Patient } from "../types";
 import { Icon } from "semantic-ui-react";
-import { useStateValue } from "../state/state";
+import EntryDetails from "./EntryDetails";
 
 function PatientInfo() {
-  const [{ diagnosis }] = useStateValue();
-
   const [patientData, setPatientData] = useState<Patient | null>(null);
   const { id } = useParams<{ id: string }>();
 
@@ -44,18 +42,7 @@ function PatientInfo() {
       <div>Occupation: {patientData.occupation}</div>
       <h3>Entries</h3>
       {patientData.entries.map((entry) => (
-        <div key={entry.id}>
-          <p>
-            {entry.date} {entry.description}
-          </p>
-          <ul>
-            {entry.diagnosisCodes?.map((code) => (
-              <li key={code}>
-                {code} {diagnosis[code]}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <EntryDetails key={entry.id} entry={entry} />
       ))}
     </section>
   );
