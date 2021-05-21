@@ -39,6 +39,19 @@ function PatientInfo() {
       </h2>
       <div>ssn: {patientData.ssn}</div>
       <div>Occupation: {patientData.occupation}</div>
+      <h3>Entries</h3>
+      {patientData.entries.map((entry) => (
+        <div key={entry.id}>
+          <p>
+            {entry.date} {entry.description}
+          </p>
+          <ul>
+            {entry.diagnosisCodes?.map((code) => (
+              <li key={code}>{code}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </section>
   );
 }
