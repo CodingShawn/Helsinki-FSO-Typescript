@@ -4,13 +4,14 @@ import { v1 as uuid } from "uuid";
 
 function getAllNonSensitive(): NonSensitivePatientData[] {
   const nonSensitiveData = formattedPatientData.map(
-    ({ id, gender, dateOfBirth, occupation, name }) => {
+    ({ id, gender, dateOfBirth, occupation, name, entries }) => {
       return {
         id,
         gender,
         dateOfBirth,
         occupation,
         name,
+        entries
       };
     }
   );

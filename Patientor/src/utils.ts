@@ -13,6 +13,7 @@ export function toNewPatientData({
     occupation: parseOccupation(occupation),
     name: parseName(name),
     ssn: parseSSN(ssn),
+    entries: [],
   };
 }
 

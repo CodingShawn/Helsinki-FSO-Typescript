@@ -46,6 +46,7 @@ const patientData = [
 
 const formattedPatientData: Patient[] = patientData.map((data) => {
   const formattedData = toNewPatientData(data) as Patient;
+  formattedData.entries = [];
   formattedData.id = data.id;
   return formattedData;
 });
