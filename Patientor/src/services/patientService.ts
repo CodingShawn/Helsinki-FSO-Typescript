@@ -17,6 +17,11 @@ function getAllNonSensitive(): NonSensitivePatientData[] {
   return nonSensitiveData;
 }
 
+function getPatient(id: string): Patient {
+  const patientData = formattedPatientData.filter((data) => data.id === id);
+  return patientData[0];
+}
+
 function addNewPatient(newPatientDetails: NewPatientData): Patient {
   const id: string = uuid();
   const newPatient = {
@@ -27,4 +32,4 @@ function addNewPatient(newPatientDetails: NewPatientData): Patient {
   return newPatient;
 }
 
-export default { getAllNonSensitive, addNewPatient };
+export default { getAllNonSensitive, addNewPatient, getPatient };
