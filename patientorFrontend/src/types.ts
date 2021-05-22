@@ -69,3 +69,9 @@ export type Entry =
 export function assertNever(value: never): never {
   throw new Error(`Unhandled union member: ${JSON.stringify(value)}`);
 }
+
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown
+  ? Omit<T, K>
+  : never;
+
+export type NewEntryDetails = UnionOmit<Entry, "id">;

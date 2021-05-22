@@ -6,6 +6,7 @@ import { apiBaseUrl } from "../constants";
 import { Patient } from "../types";
 import { Icon } from "semantic-ui-react";
 import EntryDetails from "./EntryDetails";
+import AddEntryForm from "../AddPatientModal/AddEntryForm";
 
 function PatientInfo() {
   const [patientData, setPatientData] = useState<Patient | null>(null);
@@ -44,6 +45,7 @@ function PatientInfo() {
       {patientData.entries.map((entry) => (
         <EntryDetails key={entry.id} entry={entry} />
       ))}
+      <AddEntryForm id={id}/>
     </section>
   );
 }
