@@ -32,7 +32,7 @@ function HealthCheckForm({ onSubmit, diagnosis }: EntryFormProps) {
           errors.specialist = requiredError;
         }
         if (values.type !== "HealthCheck") {
-          errors.type = "No such type selected";
+          errors.type = "Wrong type selected";
         }
         if (
           values.type === "HealthCheck" &&

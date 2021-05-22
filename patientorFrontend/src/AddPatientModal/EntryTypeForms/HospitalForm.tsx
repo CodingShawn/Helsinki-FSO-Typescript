@@ -34,7 +34,7 @@ function HospitalForm({ onSubmit, diagnosis }: EntryFormProps) {
           errors.specialist = requiredError;
         }
         if (values.type !== "Hospital") {
-          errors.type = "No such type selected";
+          errors.type = "Wrong type selected";
         }
         if (
           values.type === "Hospital" &&
