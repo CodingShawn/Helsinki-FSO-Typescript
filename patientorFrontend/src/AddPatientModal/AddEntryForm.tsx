@@ -5,6 +5,7 @@ import { NewEntryDetails, Patient } from "../types";
 import axios from "axios";
 import { apiBaseUrl } from "../constants";
 import { Button } from "semantic-ui-react";
+import HospitalForm from "./EntryTypeForms/HospitalForm";
 
 function AddEntryForm({ id }: { id: string }) {
   const [checkupType, setCheckupType] = useState("");
@@ -25,9 +26,11 @@ function AddEntryForm({ id }: { id: string }) {
   return (
     <>
       <Button onClick={() => setCheckupType("HealthCheck")}>Health Checkup Form</Button>
+      <Button onClick={() => setCheckupType("Hospital")}>Hospital Form</Button>
       {checkupType === "HealthCheck" && (
         <HealthCheckForm diagnosis={diagnosis} onSubmit={onSubmit} />
       )}
+      {checkupType === "Hospital" && <HospitalForm diagnosis={diagnosis} onSubmit={onSubmit}/>}
     </>
   );
 }

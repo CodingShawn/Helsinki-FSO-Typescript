@@ -2,19 +2,21 @@ import { Formik, Field, Form } from "formik";
 import { Button } from "semantic-ui-react";
 import { TextField } from "../FormField";
 import { DiagnosisSelection } from "../FormField";
-import { NumberField } from "../FormField";
 import React from "react";
 import { EntryFormProps } from "../../types";
 
-function HealthCheckForm({ onSubmit, diagnosis }: EntryFormProps) {
+function HospitalForm({ onSubmit, diagnosis }: EntryFormProps) {
   return (
     <Formik
       initialValues={{
         description: "",
         date: "",
         specialist: "",
-        type: "HealthCheck",
-        healthCheckRating: 0,
+        type: "Hospital",
+        discharge: {
+          date: "",
+          criteria: "",
+        },
         diagnosisCodes: [],
       }}
       onSubmit={onSubmit}
@@ -31,17 +33,14 @@ function HealthCheckForm({ onSubmit, diagnosis }: EntryFormProps) {
         if (!values.specialist) {
           errors.specialist = requiredError;
         }
-        if (values.type !== "HealthCheck") {
+        if (values.type !== "Hospital") {
           errors.type = "No such type selected";
         }
         if (
-          values.type === "HealthCheck" &&
-          values.healthCheckRating !== 0 &&
-          values.healthCheckRating !== 1 &&
-          values.healthCheckRating !== 2 &&
-          values.healthCheckRating !== 3
+          values.type === "Hospital" &&
+          (!values.discharge.date || !values.discharge.criteria)
         ) {
-          errors.healthCheckRating = "Invalid value for Health Check Rating";
+          errors.discharge = requiredError;
         }
         return errors;
       }}
@@ -74,11 +73,16 @@ function HealthCheckForm({ onSubmit, diagnosis }: EntryFormProps) {
               diagnoses={Object.values(diagnosis)}
             />
             <Field
-              label="Health Check Rating"
-              name="healthCheckRating"
-              component={NumberField}
-              min={0}
-              max={3}
+              label="Discharge Date"
+              name="discharge.date"
+              placeholder="Dischage Date"
+              component={TextField}
+            />
+            <Field
+              label="Discharge Criteria"
+              name="discharge.criteria"
+              placeholder="Dischage Criteria"
+              component={TextField}
             />
 
             <Button type="submit" color="green" disabled={!dirty || !isValid}>
@@ -91,4 +95,4 @@ function HealthCheckForm({ onSubmit, diagnosis }: EntryFormProps) {
   );
 }
 
-export default HealthCheckForm;
+export default HospitalForm;
