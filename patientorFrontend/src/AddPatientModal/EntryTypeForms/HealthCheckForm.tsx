@@ -6,7 +6,7 @@ import { NumberField } from "../FormField";
 import React from "react";
 import { EntryFormProps } from "../../types";
 
-function HealthCheckForm({ onSubmit, diagnosis }: EntryFormProps) {
+function HealthCheckForm({ onSubmit, onCancel, diagnosis }: EntryFormProps) {
   return (
     <Formik
       initialValues={{
@@ -47,7 +47,6 @@ function HealthCheckForm({ onSubmit, diagnosis }: EntryFormProps) {
       }}
     >
       {function ({ isValid, dirty, setFieldValue, setFieldTouched }) {
-
         return (
           <Form>
             <Field
@@ -58,7 +57,7 @@ function HealthCheckForm({ onSubmit, diagnosis }: EntryFormProps) {
             />
             <Field
               label="Date"
-              placeholder="Date"
+              placeholder="YYYY-MM-DD"
               name="date"
               component={TextField}
             />
@@ -84,6 +83,7 @@ function HealthCheckForm({ onSubmit, diagnosis }: EntryFormProps) {
             <Button type="submit" color="green" disabled={!dirty || !isValid}>
               Add Entry
             </Button>
+            <Button onClick={onCancel}>Close Form</Button>
           </Form>
         );
       }}

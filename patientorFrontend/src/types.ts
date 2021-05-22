@@ -80,5 +80,6 @@ export type NewEntryDetails = UnionOmit<Entry, "id">;
 
 export interface EntryFormProps {
   onSubmit: (values: NewEntryDetails) => void;
+  onCancel: () => void;
   diagnosis: Diagnosis[];
 }

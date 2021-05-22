@@ -19,9 +19,14 @@ function AddEntryForm({ id }: { id: string }) {
         values
       );
       dispatch({ type: "ADD_ENTRY", payload: updatedPatient });
+      hideForm();
     } catch (error) {
       console.log(error.response?.data || "Unknown Error");
     }
+  }
+
+  function hideForm() {
+    setCheckupType("");
   }
 
   return (
@@ -34,13 +39,13 @@ function AddEntryForm({ id }: { id: string }) {
         Occupational Healthcare Form
       </Button>
       {checkupType === "HealthCheck" && (
-        <HealthCheckForm diagnosis={diagnosis} onSubmit={onSubmit} />
+        <HealthCheckForm onCancel={hideForm} diagnosis={diagnosis} onSubmit={onSubmit} />
       )}
       {checkupType === "Hospital" && (
-        <HospitalForm diagnosis={diagnosis} onSubmit={onSubmit} />
+        <HospitalForm onCancel={hideForm} diagnosis={diagnosis} onSubmit={onSubmit} />
       )}
       {checkupType === "OccupationalHealth" && (
-        <OccupationalHealthForm diagnosis={diagnosis} onSubmit={onSubmit} />
+        <OccupationalHealthForm onCancel={hideForm} diagnosis={diagnosis} onSubmit={onSubmit} />
       )}
     </>
   );

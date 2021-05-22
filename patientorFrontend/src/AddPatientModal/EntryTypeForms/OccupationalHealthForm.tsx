@@ -5,7 +5,11 @@ import { DiagnosisSelection } from "../FormField";
 import React from "react";
 import { EntryFormProps } from "../../types";
 
-function OccupationalHealthForm({ onSubmit, diagnosis }: EntryFormProps) {
+function OccupationalHealthForm({
+  onSubmit,
+  onCancel,
+  diagnosis,
+}: EntryFormProps) {
   return (
     <Formik
       initialValues={{
@@ -55,7 +59,7 @@ function OccupationalHealthForm({ onSubmit, diagnosis }: EntryFormProps) {
             />
             <Field
               label="Date"
-              placeholder="Date"
+              placeholder="YYYY-MM-DD"
               name="date"
               component={TextField}
             />
@@ -93,6 +97,7 @@ function OccupationalHealthForm({ onSubmit, diagnosis }: EntryFormProps) {
             <Button type="submit" color="green" disabled={!dirty || !isValid}>
               Add Entry
             </Button>
+            <Button onClick={onCancel}>Close Form</Button>
           </Form>
         );
       }}
