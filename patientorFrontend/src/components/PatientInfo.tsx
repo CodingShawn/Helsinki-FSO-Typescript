@@ -1,29 +1,22 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { apiBaseUrl } from "../constants";
-import { Patient } from "../types";
 import { Icon } from "semantic-ui-react";
 import EntryDetails from "./EntryDetails";
 import AddEntryForm from "../AddPatientModal/AddEntryForm";
+import { useStateValue } from "../state";
+import { Patient } from "../types";
 
 function PatientInfo() {
-  const [patientData, setPatientData] = useState<Patient | null>(null);
+  const [{ patients }] = useStateValue();
   const { id } = useParams<{ id: string }>();
-
-  async function getPatientDetails() {
-    try {
-      const response = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
-      setPatientData(response.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+  let patientData: Patient = patients[id];
+  console.log(patients);
+  
 
   useEffect(() => {
-    void getPatientDetails();
-  }, []);
+    patientData = patients[id];
+  }, [patients]);
 
   if (!patientData) {
     return null;
@@ -45,7 +38,7 @@ function PatientInfo() {
       {patientData.entries.map((entry) => (
         <EntryDetails key={entry.id} entry={entry} />
       ))}
-      <AddEntryForm id={id}/>
+      <AddEntryForm id={id} />
     </section>
   );
 }
