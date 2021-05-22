@@ -66,6 +66,8 @@ export type Entry =
   | HospitalEntry
   | OccupationalHealthcareEntry;
 
+export type EntryTypes = "HealthCheck" | "Hospital" | "OccupationalHealthcare";
+
 export function assertNever(value: never): never {
   throw new Error(`Unhandled union member: ${JSON.stringify(value)}`);
 }
@@ -75,3 +77,8 @@ type UnionOmit<T, K extends string | number | symbol> = T extends unknown
   : never;
 
 export type NewEntryDetails = UnionOmit<Entry, "id">;
+
+export interface EntryFormProps {
+  onSubmit: (values: NewEntryDetails) => void;
+  diagnosis: Diagnosis[];
+}

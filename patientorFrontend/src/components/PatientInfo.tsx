@@ -10,9 +10,7 @@ import { Patient } from "../types";
 function PatientInfo() {
   const [{ patients }] = useStateValue();
   const { id } = useParams<{ id: string }>();
-  let patientData: Patient = patients[id];
-  console.log(patients);
-  
+  let patientData: Patient = patients[id];  
 
   useEffect(() => {
     patientData = patients[id];
