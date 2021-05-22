@@ -36,6 +36,33 @@ function AddEntryForm({ id }: { id: string }) {
         diagnosisCodes: [],
       }}
       onSubmit={onSubmit}
+      validate={(values) => {
+        const requiredError = "Field is required";
+        const errors: { [field: string]: string } = {};
+        
+        if (!values.description) {
+          errors.description = requiredError;
+        }
+        if (!values.date) {
+          errors.date = requiredError;
+        }
+        if (!values.specialist) {
+          errors.specialist = requiredError;
+        }
+        if (values.type !== "HealthCheck") {
+          errors.type = "No such type selected";
+        }
+        if (
+          values.type === "HealthCheck" &&
+          (values.healthCheckRating !== 0 &&
+            values.healthCheckRating !== 1 &&
+            values.healthCheckRating !== 2 &&
+            values.healthCheckRating !== 3)
+        ) {
+          errors.healthCheckRating = "Invalid value for Health Check Rating";
+        }
+        return errors;
+      }}
     >
       {function ({ isValid, dirty, setFieldValue, setFieldTouched }) {
         return (
