@@ -21,19 +21,23 @@ function EntryDetails({ entry }: { entry: Entry }) {
 
     default:
       assertNever(entry);
-  }
-
+  }  
   return (
     <section>
-      <h2>{entry.date} {icon}</h2>
-      <div>
-        {entry.description}
-      </div>
-      <ul>
-        {entry.diagnosisCodes?.map((code) => (
-          <li key={code}>{diagnosis[code]}</li>
-        ))}
-      </ul>
+      <h2>
+        {entry.date} {icon}
+      </h2>
+      <div>{entry.description}</div>
+      {diagnosis.length !== 0 && <ul>
+        {entry.diagnosisCodes?.map((code) => {
+          const diagnose = diagnosis.filter(
+            (diagnose) => diagnose.code === code
+          )[0];
+          return <li key={diagnose.code}>
+            {diagnose.code} {diagnose.name}
+          </li>;
+        })}
+      </ul>}
     </section>
   );
 }

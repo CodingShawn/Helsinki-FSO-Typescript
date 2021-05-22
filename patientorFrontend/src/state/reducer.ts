@@ -41,12 +41,13 @@ export const reducer = (state: State, action: Action): State => {
     case "GET_DIAGNOSIS":
       return {
         ...state,
-        diagnosis: {
-          ...action.payload.reduce(
-            (acc, diagnosis) => ({ ...acc, [diagnosis.code]: diagnosis.name }),
-            {}
-          ),
-        },
+        diagnosis: action.payload
+        // {
+        //   ...action.payload.reduce(
+        //     (acc, diagnosis) => ({ ...acc, [diagnosis.code]: diagnosis.name }),
+        //     {}
+        //   ),
+        // },
       };
     default:
       return state;
